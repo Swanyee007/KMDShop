@@ -49,7 +49,7 @@
                                                 <td>{{$item->in_stock}}</td>
                                                 <td>{{$item->category_id}}</td>
                                                 <td>
-                                                    <a href="" class="btn btn-sn btn-waring">Edit</a>
+                                                    <a href="" class="btn btn-sn btn-warning">Edit</a>
                                                     <button class="btn btn-sn btn-danger">Delete</button>
                                                 </td>
                                             </tr>

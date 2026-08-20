@@ -4,7 +4,8 @@
 <div class="container">
     <div class="card shadow mb-4">
         <div class="card-header">
-            <h4>Create Item</h4>
+            <h4>Edit Item</h4>
+            <a href="{{route('backend.items.index')}}" class="btn btn-danger">Cancle</a>
         </div>
 
         <div class="card-body">
@@ -16,13 +17,13 @@
             <label class="form-label">Code No</label>
             <input type="text"
                 name="code_no"
-                value="{{old('code_no')}}"
+                value="{{old('code_no',$item->code_no)}}"
                 class="form-control @error ('code_no') is-invalid @enderror"
                 placeholder="eg. 1234">
                 @error('code_no')
                 <div class="invalid-feedback">{{$message}}</div>
                 @enderror
-            
+
         </div>
 
 <!-- Item Name -->
@@ -30,7 +31,7 @@
     <label class="form-label">Item Name</label>
     <input type="text"
            name="name"
-           value="{{old('name')}}"
+           value="{{old('name',$item->name)}}"
            class="form-control  @error ('name') is-invalid @enderror">
         @error('name')
             <div class="invalid-feedback">{{$message}}</div>
@@ -55,7 +56,7 @@
     <label class="form-label">Price</label>
     <input type="number"
            name="price"
-           value="{{old('price')}}"
+           value="{{old('price',$item->price)}}"
            class="form-control @error ('price') is-invalid @enderror">
 
         @error('price')
@@ -68,7 +69,7 @@
     <label class="form-label">Discount (%)</label>
     <input type="number"
            name="discount"
-           value="{{old('discount')}}"
+           value="{{old('discount',$item->discount)}}"
            class="form-control @error ('discount') is-invalid @enderror">
            @error('discount')
                 <div class="invalid-feedback">{{$message}}</div>
@@ -76,12 +77,12 @@
 </div>
 
 <!-- In Stock -->
-  
+
  <select name="in_stock" value="{{old('in_stock')}}"
         class="form-select @error('in_stock') is-invalid @enderror" >
-    <option value="">InStock </option>
-    <option value="1">Yes</option>
-    <option value="0">No</option>
+    <option value="">InStock</option>
+    <option value="1" {{$item->in_stock==1 ? 'selected ':''}}>Yes</option>
+    <option value="0" {{$item->in_stock==0 ? 'selected ':''}}>No</option>
 
 </select>
 
@@ -95,7 +96,7 @@
     <label class="form-label">Description</label>
     <textarea name="description"
               rows="4"
-              class="form-control  @error ('description') is-invalid @enderror">{{old('description')}}</textarea>
+              class="form-control  @error ('description') is-invalid @enderror">{{old('description',$item->description)}}</textarea>
     @error('description')
         <div class="invalid-feedback">{{$message}}</div>
     @enderror
@@ -110,11 +111,11 @@
 
         <option value="">Choose Category</option>
         @foreach ($categories as $category)
-            <option value="{{$category->id}}" 
-            {{old('category_id')== $category->id ? 'selected' : ''}}>
+            <option value="{{$category->id}}"
+            {{old('category_id',$item->catrgory_id)== $category->id ? 'selected' : ''}}>
             {{$category->name}}</option>
         @endforeach
-        
+
     </select>
     @error('category_id')
         <div class="invalid-feedback">{{$message}}</div>

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class ItemRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class ItemRequest extends FormRequest
         return [
             "code_no"=>'required',
             'name'=>'required',
-            'image'=>'required | image|mimes:jpg,jpeg,png,web|max:2048',
+            'image'=>'required',File::image(),
             'price'=>'required',
             'in_stock'=>'required',
             'description'=>'required',

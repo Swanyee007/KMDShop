@@ -5,13 +5,13 @@
     <div class="card shadow mb-4">
         <div class="card-header">
             <h4>Edit Item</h4>
-            <a href="{{route('backend.items.index')}}" class="btn btn-danger">Cancle</a>
+            <a href="{{route('backend.items.index')}}" class="btn btn-danger">Cancel</a>
         </div>
 
         <div class="card-body">
-            <form action="{{ route('backend.items.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('backend.items.update',$item->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
-
+                @method('PUT')
                 <!-- Code No -->
         <div class="mb-3">
             <label class="form-label">Code No</label>
@@ -39,17 +39,29 @@
 
    </div>
 
-<!-- Image -->
-<div class="mb-3">
-    <label class="form-label">Image</label>
-    <input type="file"
-           accept="image/*"
-           name="image"
-           class="form-control  @error ('image') is-invalid @enderror">
-    @error('image')
-            <div class="invalid-feedback">{{$message}}</div>
-    @enderror
- </div>
+ <!-- Image -->
+
+      <div class="mb-3">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="image-tab" data-bs-toggle="tab" data-bs-target="#image-tab-pane" type="button" role="tab" aria-controls="image-tab-pane" aria-selected="true">Image</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="new_image-tab" data-bs-toggle="tab" data-bs-target="#new_image-tab-pane" type="button" role="tab" aria-controls="new_image-tab-pane" aria-selected="false">New Image</button>
+          </li>
+
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="image-tab-pane" role="tabpanel" aria-labelledby="image-tab" tabindex="0">
+            <img src="{{asset($item->image)}}" class="w-25 h-25 my-2" alt="">
+            <input type="hidden" name="old_image" id="" value="{{$item->image}}">
+          </div>
+          <div class="tab-pane fade" id="new_image-tab-pane" role="tabpanel" aria-labelledby="new_image-tab" tabindex="0">
+             <input type="file" accept="image/*" class="form-control @error('image') is-invalid @enderror" id="image" name="image" value="{{old('image')}}">
+          </div>
+        </div>
+      </div>
+
 
 <!-- Price -->
 <div class="mb-3">
@@ -80,9 +92,9 @@
 
  <select name="in_stock" value="{{old('in_stock')}}"
         class="form-select @error('in_stock') is-invalid @enderror" >
-    <option value="">InStock</option>
-    <option value="1" {{$item->in_stock==1 ? 'selected ':''}}>Yes</option>
-    <option value="0" {{$item->in_stock==0 ? 'selected ':''}}>No</option>
+    <option value="">InStock </option>
+    <option value="1" {{$item->in_stock==1 ? 'selected':''}}>Yes</option>
+    <option value="0" {{$item->in_stock==0 ? 'selected':''}}>No</option>
 
 </select>
 
@@ -112,7 +124,7 @@
         <option value="">Choose Category</option>
         @foreach ($categories as $category)
             <option value="{{$category->id}}"
-            {{old('category_id',$item->catrgory_id)== $category->id ? 'selected' : ''}}>
+            {{old('category_id',$item->category_id)== $category->id ? 'selected' : ''}}>
             {{$category->name}}</option>
         @endforeach
 
@@ -125,7 +137,7 @@
                 <!-- Buttons -->
                 <div class="mt-3">
                     <button type="submit" class="btn btn-primary">
-                        Save Item
+                        Update Item
                     </button>
 
                     <a href="{{ route('backend.items.index') }}" class="btn btn-secondary">

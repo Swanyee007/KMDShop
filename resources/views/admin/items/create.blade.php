@@ -22,7 +22,7 @@
                 @error('code_no')
                 <div class="invalid-feedback">{{$message}}</div>
                 @enderror
-            
+
         </div>
 
 <!-- Item Name -->
@@ -76,7 +76,7 @@
 </div>
 
 <!-- In Stock -->
-  
+
  <select name="in_stock" value="{{old('in_stock')}}"
         class="form-select @error('in_stock') is-invalid @enderror" >
     <option value="">InStock </option>
@@ -110,11 +110,11 @@
 
         <option value="">Choose Category</option>
         @foreach ($categories as $category)
-            <option value="{{$category->id}}" 
+            <option value="{{$category->id}}"
             {{old('category_id')== $category->id ? 'selected' : ''}}>
             {{$category->name}}</option>
         @endforeach
-        
+
     </select>
     @error('category_id')
         <div class="invalid-feedback">{{$message}}</div>
